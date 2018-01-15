@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<page>
+		&lt;html&gt;
+			&lt;head&gt;
+				&lt;title&gt;网页标题&lt;/title&gt;
+			&lt;/head&gt;
+			&lt;body&gt;
+				网页内容
+			&lt;/body&gt;
+		&lt;/html&gt;
+	</page>
+	<page>
+		<![CDATA[
+			<html>
+				<head>
+					<title>网页标题</title>
+				</head>
+				<body>
+					网页内容
+				</body>
+			</html>
+		]]>
+	</page>
+	<PAGE id="01"></PAGE>
+	<!-- <45page></45page> -->
+</pages>
+<!-- <pages></pages> -->

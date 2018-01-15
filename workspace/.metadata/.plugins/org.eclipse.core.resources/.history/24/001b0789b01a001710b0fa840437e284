@@ -1,0 +1,80 @@
+package com.atguigu.gson;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.Test;
+
+import com.atguigu.servlet.User;
+import com.google.gson.Gson;
+
+/**
+ * 文件名: GsonTest.java
+ * 描述: 使用GSON
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月6日 下午3:30:27
+ */
+public class GsonTest {
+	
+	public void testList(){
+		ArrayList<User> list = new ArrayList<User>();
+		list.add(new User("Tom", 13, "male", "13112141516"));
+		list.add(new User("Lucy", 18, "female", "13112141517"));
+		list.add(new User("Jerry", 19, "male", "13112141518"));
+		list.add(new User("Haha", 20, "male", "13112141519"));
+		
+		
+	}
+	
+	
+	//如何解析对象
+	@Test
+	public void testObject() {
+		//创建user对象
+		User user = new User("TOM", 15, "male", "13118623344");
+		
+		//创建解析器
+		Gson gson = new Gson();
+		
+		//将user对象转成字符串
+		//{"name":"TOM","age":15,"gender":"male","phone":"13118623344"}
+		String json = gson.toJson(user);
+		System.out.println(json);
+		
+		//将字符串转成对象
+		User user2 = gson.fromJson(json, User.class);
+		System.out.println(user2);
+		
+	}
+	@Test
+	public void primitiveTest(){
+		
+		//基本数据类型
+		String str = "Tom";
+		int age = 16;
+		boolean isMarry = false;
+		double price = 10.01;
+		
+		//转json字符串
+		Gson gson = new Gson();
+		String namestr = gson.toJson(str, String.class);
+		System.out.println(namestr);
+		//将字符串转成对象
+		String nameobj = gson.fromJson(namestr, String.class);
+		System.out.println("String对象："+nameobj);
+		
+		String agestr = gson.toJson(age, Integer.class);
+		System.out.println(agestr);
+		
+		String isMarrystr = gson.toJson(isMarry, Boolean.class);
+		System.out.println(isMarrystr);
+		
+		String pricestr = gson.toJson(price, Double.class);
+		System.out.println(pricestr);
+		Double priceobj = gson.fromJson(pricestr, Double.class);
+		System.out.println("Double对象："+priceobj);
+	}
+
+}

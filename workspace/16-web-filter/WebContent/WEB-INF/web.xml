@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <filter>
+    <filter-name>AFilter</filter-name>
+    <filter-class>com.atguigu.filter.AFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AFilter</filter-name>
+    <url-pattern>/1.html</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>HellowordFilter</filter-name>
+    <filter-class>com.atguigu.filter.HellowordFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>HellowordFilter</filter-name>
+    <url-pattern>/index.jsp</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AServlet</display-name>
+    <servlet-name>AServlet</servlet-name>
+    <servlet-class>com.atguigu.servlet.AServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AServlet</servlet-name>
+    <url-pattern>/AServlet</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>BFilter</display-name>
+    <filter-name>BFilter</filter-name>
+    <filter-class>com.atguigu.filter.BFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>BFilter</filter-name>
+    <servlet-name>AServlet</servlet-name>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>CFilter</display-name>
+    <filter-name>CFilter</filter-name>
+    <filter-class>com.atguigu.filter.CFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CFilter</filter-name>
+    <url-pattern>/error.jsp</url-pattern>
+   <dispatcher>FORWARD</dispatcher>
+   <!--  <dispatcher>REQUEST</dispatcher> -->
+   <!--  <dispatcher>INCLUDE</dispatcher> -->
+   <!-- <dispatcher>ERROR</dispatcher> -->
+  </filter-mapping>
+  
+
+  <error-page>
+  		<!-- 配置响应状态码 -->
+  		<error-code>404</error-code>
+  		<!-- 发生错误返回的资源 -->
+  		<location>/error.jsp</location>
+  </error-page>
+</web-app>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS基本语法</title>
+<!-- 第2种：通过style标签来定义样式 -->
+<!-- 此方式在当前页面中可以实现复用效果 -->
+<!-- <style>
+		p{
+			color:red;
+		}
+</style> -->
+<!-- 第3种方式：通过link标签引入一个外部的css文件 -->
+<!-- href用来指定要引入的css样式文件的url路径 -->
+<!-- 此方式可以在多个文件中复用 -->
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+<body>
+	<!-- 第1种方式：直接使用标签的style属性 -->
+	<!-- 这种方式标签与css样式耦合，且不能复用，所以不推荐使用 -->
+	<!-- <p style="color:blue">落霞与孤鹜齐飞，秋水共长天一色</p> -->
+	<p>落霞与孤鹜齐飞，秋水共长天一色</p>
+	<p>落霞与孤鹜齐飞，秋水共长天一色</p>
+	
+</body>
+</html>

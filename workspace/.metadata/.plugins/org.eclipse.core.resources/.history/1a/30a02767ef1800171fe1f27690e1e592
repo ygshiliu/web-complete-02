@@ -1,0 +1,27 @@
+2. 生命周期监听器
+	1）ServletContextListener用于监听application域对象的被创建与被销毁事件
+		- public void contextInitialized(ServletContextEvent sce);在application对象创建时调用
+		- public void contextDestroyed(ServletContextEvent sce); 在application对象被销毁时调用
+		
+		-ServletContextEvent：可以用来获取servletContext对象
+		
+	2)HttpSessionListener : 用于监听session被创建与被销毁事件
+		- public void sessionCreated(HttpSessionEvent se); 在session域对象被创建时调用
+		- public void sessionDestroyed(HttpSessionEvent se); 在session域对象被销毁时调用
+		
+		- HttpSessionEvent ： 可以用来获取 session对象
+		
+	3)ServletRequestListener ： 用于监听 request域对象被创建与被销毁事件
+		- public void requestInitialized(ServletRequestEvent sre); request对象被创建时调用
+		- public void requestDestroyed(ServletRequestEvent sre); request对象被销毁时调用
+		
+		- ServletRequestEvent：可以用来获取request对象和application对象
+
+1. 创建Listener监听器步骤：
+	第一步：创建一个类来实现listener接口
+	第二步： 在web.xml中对listener进行配置
+		<!-- 配置listener监听器 -->
+		<listener>
+			<!-- 配置listener监听器的全类名 -->
+			<listener-class>com.atguigu.listener.HelloServletContextListener</listener-class>
+		</listener>

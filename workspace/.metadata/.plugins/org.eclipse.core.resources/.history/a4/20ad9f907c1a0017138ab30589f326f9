@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	//Json与js对象很像，也是由键值对组成，多个键值对间使用逗号隔开，注意最后一个不加逗号
+	//不同的是，json的键要求都是字符串，而js对象没有要求
+	//json的值有哪些类型呢？ 字符串，数值，布尔值，数组，对象
+	var array = ["a","b","c"];
+	console.log(array[0]);
+	
+	var obj = {
+			name:"Tom",
+			age:15,
+			issingle:false,
+			address:{
+				city:"北京",
+				district:"昌平区"
+			},
+			hobby:[1000,2000,3000]
+	}
+	
+	console.log(obj.name+"--"+obj.age+"--"+obj.issingle+"--"+obj.address.city+"--"+hobby[0]);
+	console.log(obj);
+</script>
+</head>
+<body>
+
+</body>
+</html>

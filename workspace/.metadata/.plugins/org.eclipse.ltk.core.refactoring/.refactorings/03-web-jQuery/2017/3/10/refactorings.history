@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;script&apos; to &apos;static&apos;&#x0D;&#x0A;- Original project: &apos;03-web-jQuery&apos;&#x0D;&#x0A;- Destination element: &apos;static&apos;&#x0D;&#x0A;- Original element: &apos;script&apos;" description="Copy folder" element1="WebContent/jQuery_Demo/练习/☆练习07 事件 图片跟随/script" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1488872939227" target="/04-web-Bookstore/WebContent/static" units="0" version="1.0"/>
+</session>

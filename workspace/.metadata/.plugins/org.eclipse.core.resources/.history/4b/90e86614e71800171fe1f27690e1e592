@@ -1,0 +1,8 @@
+1. 创建Listener监听器步骤：
+	第一步：创建一个类来实现listener接口
+	第二步： 在web.xml中对listener进行配置
+		<!-- 配置listener监听器 -->
+		<listener>
+			<!-- 配置listener监听器的全类名 -->
+			<listener-class>com.atguigu.listener.HelloServletContextListener</listener-class>
+		</listener>

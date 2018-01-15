@@ -1,0 +1,40 @@
+package com.atguigu.listener;
+
+import javax.servlet.ServletContextAttributeEvent;
+import javax.servlet.ServletContextAttributeListener;
+
+/**
+ * Application Lifecycle Listener implementation class appAttrListener
+ *
+ */
+public class appAttrListener implements ServletContextAttributeListener {
+
+    /**
+     * Default constructor. 
+     */
+    public appAttrListener() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+     * @see ServletContextAttributeListener#attributeAdded(ServletContextAttributeEvent)
+     */
+    public void attributeAdded(ServletContextAttributeEvent scab)  { 
+         // TODO Auto-generated method stub
+    }
+
+	/**
+     * @see ServletContextAttributeListener#attributeReplaced(ServletContextAttributeEvent)
+     */
+    public void attributeReplaced(ServletContextAttributeEvent scab)  { 
+         // TODO Auto-generated method stub
+    }
+
+	/**
+     * @see ServletContextAttributeListener#attributeRemoved(ServletContextAttributeEvent)
+     */
+    public void attributeRemoved(ServletContextAttributeEvent scab)  { 
+         // TODO Auto-generated method stub
+    }
+	
+}

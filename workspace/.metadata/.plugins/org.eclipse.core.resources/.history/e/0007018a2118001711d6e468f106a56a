@@ -1,0 +1,25 @@
+package com.atguigu.filter;
+
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * 文件名: LoginFilter.java
+ * 描述: 用来过滤用户登录验证请求
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月3日 上午11:54:05
+ */
+public class LoginFilter extends HttpFilter {
+
+	@Override
+	public void doFilter(HttpServletRequest req, HttpServletResponse resp,
+			FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

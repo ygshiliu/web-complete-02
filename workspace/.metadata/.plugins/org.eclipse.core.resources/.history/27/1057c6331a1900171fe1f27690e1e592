@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	window.onload = function(){
+		//获取按钮并绑定单击事件
+		document.getElementsByTagName("button")[0].onclick=function(){
+			//ajax给我们专门提供了这么一个对象就XMLHttpRequest，用来封装请求信息以及服务器返回的响应信息
+			//我们可以直接创建引对象，设置我们需要的信息就可以
+			var xhr = new XMLHttpRequest();
+			//准备信息
+			/* 
+				method:请求方式字符串
+				url:用来设置可以处理请求的服务器路径
+				async：是否设置成异步，是一个布尔值 ，默认为true
+				username,password是用来指定用户名和密码，有些请求是需要有用户名和密码权限的
+			*/
+			xhr.open("get", "/18-web-ajax/HelloServlet");
+			//发送请求
+			//获取响应
+			
+		}
+	}
+
+</script>
+</head>
+<body>
+	<button>访问服务</button>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HelloWorld</title>
+<!-- js代码通常写在script标签中 -->
+<!-- <script type="text/javascript">
+
+	//alert()会弹出带有消息的对象框
+	//window是一个对象
+	//onload是window对象的属性
+	//function(){}是一个函数
+	//document是一个对象
+	//getElementById()是document对象的一个方法
+	//var btn 用来声明一个变量
+	//onclick是btn对象的一个属性
+	
+	//给window.onload属性赋一个function函数
+	window.onload = function(){
+		//获取按钮元素
+		var btn = document.getElementById("btnId");
+		//给按钮元素绑定一个onclick属性
+		btn.onclick = function(){
+			alert("我会JS操作了");
+		}
+	}
+</script> -->
+
+<!-- 第二种方式：可以通过script标签来引入一个外部js文件 -->
+<!-- 注意，script标签引入 外部js文件后就不可以在script标签体中定js代码了 -->
+<!-- src属性用来指向一个外部的js文件 -->
+<script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+
+	<button id="btnId">SayHello</button>
+
+</body>
+</html>

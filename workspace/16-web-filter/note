@@ -1,0 +1,89 @@
+6. 	Filter默认只会对直接访问的请求资源进行过滤，对通过转发方式访问的请求资源不会处理
+	filter-mapping中的<dispatcher></dispatcher>子标签，可以用来配置请求的拦截方式。
+	它有四个值，分别为REQUEST、FORWARD、INCLUDE、ERROR
+		REQUEST：表示对直接访问的资源进行过滤。如果不指定默认为REQUEST,如果指定则使用指定值进行设置。
+		FORWARD：表示对转发访问的请求资源进行过滤
+		INCLUDE：表示对动态包含的请求进行过滤，
+				即对<jsp:include page="1.jsp"></jsp:include>,
+				而非<%@ include file="1.jsp" %> 
+		ERROR ： 指在web.xml中配置的error-page信息进行过滤。如下：
+				  <error-page>
+				  		<!-- 配置响应状态码 -->
+				  		<error-code>404</error-code>
+				  		<!-- 发生错误返回的资源 -->
+				  		<location>/1.jsp</location>
+				  </error-page>
+
+5. 映射规则：
+	主要指web.xml中filter-mapping中的url-patten标签的配置规则。以达到过滤请求的目的。
+	分为三种方式：
+	1)精确匹配：就是访问的请求资源与url-patten配置的内容完全一样时，就会被过滤器拦截。
+		比如： /index.jsp 
+			只有访问根目录下的index.jsp时才会调用Filter
+	2)路径匹配：就是访问的资源路径在url-patten配置的路径下，就会被过滤器拦截
+		比如：/user/* 
+			只有访问根目录下的user目录下的资源时，才会调用Filter
+		比如：/*
+			只要访问根目录下的资源就会调用Filter
+	3)后缀匹配：就是访问的资源以url-patten配置的内容结尾，就会被过滤器拦截
+		比如：*.jsp
+			只要访问的目标资源是以.jsp结尾就会调用Filter
+			
+	以上映射规则也适用于servlet-mapping中的url-patten
+	
+	Filter对servlet进行过滤，如何设置？
+	1>将filter-mapping中的url-patten与servlet-mapping中的url-patten设置成一样
+		  <servlet-mapping>
+		    <servlet-name>AServlet</servlet-name>
+		    <url-pattern>/AServlet</url-pattern>
+		  </servlet-mapping>
+		  <filter-mapping>
+		    <filter-name>BFilter</filter-name>
+		    <url-pattern>/AServlet</url-pattern>
+		  </filter-mapping>
+	2>可以使用filter-mapping的另一个子标签servlet-name与过滤的servlet的servelt-name值设置一样
+
+4. FilterChain:多个过滤器过滤相同的请求路径组成的链
+	Filter执行顺序是由在web.xml中配置的先后顺序决定的
+
+3. Filter的生命周期：
+	就是Filter从被创建到被销毁的过程
+	主要研究Filter的生命周期方法：
+		构造器：
+			服务器启动时被调用，调用1次，说明Filter也是单例多线程模式
+		init():
+			是在构造器方法调用后紧跟着调用，调用1次，主要是对Filter进行被始化配置的
+		doFilter():
+			每一次过滤请求时都会调用，调用多次
+		destroy():
+			项目被卸载前被调用，调用1次，主要是用来释放资源，做收尾工作
+	
+
+2. Filter的作用：
+	可以对请求进行拦截 
+	可以对请求进行放行
+	可以对请求报文进行预处理
+	可以对响应报文进行更改
+
+1. 创建Filter步骤：
+	第一：创建一个类实现Filter
+	第二：需要将Filter在web.xml是进行配置
+			
+		<!-- 注册Filter -->
+		<filter>
+			<!-- Fitler别名，可以随便写，但通常我们使用简单类名 -->
+			<!-- Filter在服务器中的一切操作都是通过别名来实现 -->
+			<filter-name>HellowordFilter</filter-name>
+			<!-- 配置Filter全类名，服务器会通过反射的方式来创建Filter实例 -->
+			<filter-class>com.atguigu.filter.HellowordFilter</filter-class>
+		</filter>
+		
+		<!-- 映射Filter -->
+		<!-- 对用户请求进行过滤 -->
+		<filter-mapping>
+			<!-- 不可以随便写，要与filter/filter-name子标签中的配置一一对应 -->
+			<filter-name>HellowordFilter</filter-name>
+			<!-- 用来对请求资源进行过滤 -->
+			<url-pattern>/index.jsp</url-pattern>
+		</filter-mapping>
+	

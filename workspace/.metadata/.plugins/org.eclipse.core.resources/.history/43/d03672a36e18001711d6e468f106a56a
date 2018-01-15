@@ -1,0 +1,114 @@
+package com.atguigu.utils;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+/**
+ * 文件名: JDBCUtil.java
+ * 描述: 使用C3P0来管理数据库连接
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年3月10日 下午1:59:10
+ */
+public class JDBCUtil {
+	private static DataSource ds = new ComboPooledDataSource("webDataSource");
+	/*//方案1：单例模式
+	private static Connection conn;*/
+/*	方案2：创建一个map来保存connection对象
+	private static Map<Thread,Connection> map = new HashMap<>();*/
+	private static ThreadLocal<Connection> local = new ThreadLocal<Connection>();
+	
+	//获取数据库连接
+	public static Connection getConnection(){
+		//定义一个connection对象
+		Connection conn = local.get();
+		//判断
+		if(conn==null){
+			try {
+				conn = ds.getConnection();
+				//将connection对象放入map中管理
+				map.put(Thread.currentThread(), conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return conn;
+	}
+	/*
+	 * 方案2：
+	 * public static Connection getConnection(){
+		//定义一个connection对象
+		Connection conn = map.get(Thread.currentThread());
+		//判断
+		if(conn==null){
+			try {
+				conn = ds.getConnection();
+				//将connection对象放入map中管理
+				map.put(Thread.currentThread(), conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return conn;
+	}*/
+	/*
+	 * 方案1：
+	 * public static Connection getConnection(){
+		if(conn==null){
+			try {
+				conn= ds.getConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return conn;
+	}*/
+	/*没加事务之前的方法
+	 * public static Connection getConnection(){
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}*/
+	
+	//释放数据库连接
+	public static void releaseConnection(){
+		//获取connection对象
+		Connection conn = map.get(Thread.currentThread());
+		if(conn != null){
+			try {
+				//关闭connection对象
+				conn.close();
+				//从map中删除connection对象
+				map.remove(Thread.currentThread());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+/*	
+ * 没有加事务之前的关闭操作
+ * public static void releaseConnection(Connection conn){
+		//判断一下是否为null
+		if(conn != null){
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}*/
+	
+	
+}

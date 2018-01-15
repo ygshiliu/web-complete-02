@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+
+		//获取按钮
+		$("button:eq(0)").click(function(){
+			/* 
+				url:请求的服务器路径
+				data:请求参数
+				callback:请求成功返回时调用的回调函数
+				type:响应数据格式
+			*/
+			var url = "/18-web-ajax/jQueryServlet";
+			var data = {
+					name:"Tom",
+					age:16
+			};
+			var fun = function(param){
+				console.log(param);
+			};
+			var type = "json";
+			$.post(url, data, fun, type);
+
+		})
+		
+		//获取按钮，发送get请求
+		$("button:eq(1)").click(function(){
+			
+			$.get("/18-web-ajax/jQueryServlet?name=Lucy&age=18",function(data){
+				console.log(data);
+			}, "json");
+		})
+		//获取按钮，使用getJson
+		//不用
+		$("button:eq(1)").click(function(){
+			
+			$.getJson("/18-web-ajax/jQueryServlet?name=Lucy&age=18",function(data){
+				console.log(data);
+			}, "json");
+		})
+	})
+
+</script>
+</head>
+<body>
+	<h1>jQuery.html</h1>
+	<button>发送post</button><br><br>
+	<button>发送get</button>
+</body>
+</html>

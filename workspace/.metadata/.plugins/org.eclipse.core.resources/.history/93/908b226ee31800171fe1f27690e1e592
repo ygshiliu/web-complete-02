@@ -1,0 +1,27 @@
+package com.atguigu.listener;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+/**
+ * 文件名: HelloServletContextListener.java
+ * 描述: application域的生命周期监听器
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月4日 上午11:02:25
+ */
+public class HelloServletContextListener implements ServletContextListener {
+	
+	//application被创建时调用
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		// TODO Auto-generated method stub
+		
+	}
+	//application被销毁时调用
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

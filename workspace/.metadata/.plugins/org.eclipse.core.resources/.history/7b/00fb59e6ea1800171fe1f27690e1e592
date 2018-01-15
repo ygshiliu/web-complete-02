@@ -1,0 +1,33 @@
+package com.atguigu.listener;
+
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
+
+/**
+ * Application Lifecycle Listener implementation class HelloServletRequestListener
+ *
+ */
+public class HelloServletRequestListener implements ServletRequestListener {
+
+    /**
+     * Default constructor. 
+     */
+    public HelloServletRequestListener() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+     * @see ServletRequestListener#requestDestroyed(ServletRequestEvent)
+     */
+    public void requestDestroyed(ServletRequestEvent sre)  { 
+         // TODO Auto-generated method stub
+    }
+
+	/**
+     * @see ServletRequestListener#requestInitialized(ServletRequestEvent)
+     */
+    public void requestInitialized(ServletRequestEvent sre)  { 
+         // TODO Auto-generated method stub
+    }
+	
+}

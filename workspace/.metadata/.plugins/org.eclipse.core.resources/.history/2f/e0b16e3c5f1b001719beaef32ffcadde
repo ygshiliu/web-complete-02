@@ -1,0 +1,58 @@
+package com.atguigu.servlet;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
+
+
+/**
+ * Servlet implementation class UploadServlet
+ */
+public class UploadServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*request.setCharacterEncoding("utf-8");
+		//获取用户输入的信息
+		String name = request.getParameter("name");
+		String filename = request.getParameter("file");
+		System.out.println(name+"--"+filename);*/
+		
+		/*//获取输入流
+		ServletInputStream in = request.getInputStream();
+		String str = IOUtils.toString(in);
+		System.out.println(str);*/
+		
+		//创建解析器工厂类
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		
+		//创建解析器实例
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		//ServletFileUpload upload = new ServletFileUpload();
+		
+		//获取FileItem
+		try {
+			List<FileItem> list = upload.parseRequest(request);
+			
+		} catch (FileUploadException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+}

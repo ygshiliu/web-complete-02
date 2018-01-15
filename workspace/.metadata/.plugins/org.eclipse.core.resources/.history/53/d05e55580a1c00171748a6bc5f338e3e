@@ -1,0 +1,29 @@
+package com.atguigu.i18n;
+
+import static org.junit.Assert.*;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import org.junit.Test;
+
+/**
+ * 文件名: TestI18n.java
+ * 描述: 
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月8日 上午11:16:05
+ */
+public class TestI18n {
+
+	@Test
+	public void test() {
+		//根据默认语言环境加载资源文件
+		ResourceBundle bundle = ResourceBundle.getBundle("i18n");
+		
+		Locale locale = bundle.getLocale();
+		System.out.println(locale);
+		String title = bundle.getString("title");
+		System.out.println(title);
+	}
+
+}

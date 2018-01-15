@@ -1,0 +1,20 @@
+package com.atguigu.i18n;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+/**
+ * 文件名: TestI18n.java
+ * 描述: 
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月8日 上午11:16:05
+ */
+public class TestI18n {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

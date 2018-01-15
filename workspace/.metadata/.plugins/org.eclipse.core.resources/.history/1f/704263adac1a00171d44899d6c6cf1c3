@@ -1,0 +1,38 @@
+package com.atguigu.servlet;
+
+import java.util.List;
+
+/**
+ * 文件名: User.java
+ * 描述: 
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月6日 上午10:22:46
+ */
+public class User {
+	
+	private String name1 ;
+	private int age;
+	private String gender;
+	private String phone;
+	private List<Integer> list;
+	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public User(String name, int age, String gender, String phone,List list) {
+		super();
+		this.name1 = name;
+		this.age = age;
+		this.gender = gender;
+		this.phone = phone;
+		this.list = list;
+	}
+	@Override
+	public String toString() {
+		return "User [name1=" + name1 + ", age=" + age + ", gender=" + gender
+				+ ", phone=" + phone + ", list=" + list + "]";
+	}
+
+	
+}

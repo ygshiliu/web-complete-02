@@ -1,0 +1,143 @@
+package com.atguigu.servlet;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.atguigu.bean.Book;
+import com.atguigu.bean.Cart;
+import com.atguigu.service.BookService;
+import com.atguigu.service.impl.BookServiceImpl;
+import com.atguigu.utils.WEBUtils;
+import com.google.gson.Gson;
+
+/**
+ * 与购物车相关的请求
+ * Servlet implementation class CartServlet
+ */
+public class CartServlet extends BaseServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private BookService bs = new BookServiceImpl();
+	
+	/**
+	 * 添加图书到购物车中
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void addBook2Cart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//获取bookID
+		String bookId = request.getParameter("bookId");
+		//获取图书
+		Book book = bs.getBook(bookId);
+		
+		//获取 Cart
+		HttpSession session = request.getSession();
+		Cart cart = WEBUtils.getCart(request);
+		//将图书添加进购物车
+		cart.addBook2Cart(book);
+		
+		//返回图书名称与购物车数量
+		Map<String,Object> map = new HashMap();
+		map.put("title", book.getTitle());
+		map.put("totalCount", cart.getTotalCount());
+		
+		//返回json字符串
+		Gson gson = new Gson();
+		String json = gson.toJson(map);
+		
+		//设置响应字符集
+		response.setContentType("text/html;charset=utf-8");
+		//返回浏览器信息
+		response.getWriter().print(json);
+		
+		
+		/*
+		 * 加入ajax之前代码
+		 * //获取请求来源
+		String referer = request.getHeader("referer");
+		
+		//获取图书名称放到域中
+		session.setAttribute("title", book.getTitle());
+		//重定向
+		response.sendRedirect(referer);*/
+	}
+	//删除购物项
+	protected void deleteCartItem(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取请求参数 
+		String bookId = request.getParameter("bookId");
+		
+		//获取购物车
+		Cart cart = WEBUtils.getCart(request);
+		
+		//删除cartItem
+		cart.deleteCartItem(bookId);
+		
+		//获取referer
+		String referer = request.getHeader("referer");
+		
+		response.sendRedirect(referer);
+	}
+	
+	//清空购物车
+	protected void clear(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		//获取Cart
+		Cart cart = WEBUtils.getCart(request);
+		//清空购物车
+		cart.clear();
+		//获取请求来源
+		String referer = request.getHeader("referer");
+		//重定向
+		response.sendRedirect(referer);
+		
+	}
+	
+	//修改购物项数量
+	protected void changeCount(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取请求参数
+		String bookId = request.getParameter("bookId");
+		String countstr = request.getParameter("count");
+		int count = Integer.parseInt(countstr);
+		
+		//获取Cart
+		Cart cart = WEBUtils.getCart(request);
+		
+		cart.changeCount(bookId, count);
+		
+		//准备页面需要的数据
+		Map<String, Object> map = new HashMap<String, Object>();
+		//单品种金额
+		map.put("amount", cart.getMap().get(bookId).getAmount());
+		//购物车总数据
+		map.put("totalCount", cart.getTotalCount());
+		//购物车总金额
+		map.put("totalAmount", cart.getTotalAmount());
+		
+		//创建Gson
+		Gson gson = new Gson();
+		String json = gson.toJson(map);
+		
+		//返回json字符串
+		response.getWriter().print(json);
+		
+		/*//获取请求头
+		 * 通过js代码修改window.location.href来发送请求没有referer请求头，获取到的值为null
+		String referer = request.getHeader("referer");
+		System.out.println(referer);*/
+		
+		//重定向
+		//response.sendRedirect(request.getContextPath()+"/pages/cart/cart.jsp");
+		
+	}
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JS中的事件</title>
+
+</head>
+<body>
+	<button id="btnId">SayHello</button>
+	<script type="text/javascript">
+		//获取按钮元素
+		var btn = document.getElementById("btnId");
+		alert(btn);
+		//为btn对象动态添加单击事件属性
+		btn.onclick = function(){
+			alert("通过script标签来绑定单击事件");
+		}
+</script>
+</body>
+</html>

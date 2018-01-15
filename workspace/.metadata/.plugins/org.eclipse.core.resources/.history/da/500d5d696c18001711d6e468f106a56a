@@ -1,0 +1,46 @@
+package com.atguigu.dao.imp;
+
+import java.util.List;
+
+import com.atguigu.bean.Order;
+import com.atguigu.dao.BaseDao;
+import com.atguigu.dao.OrderDao;
+
+/**
+ * 文件名: OrderDaoImpl.java 描述: OrderDao实现类 开发人员： Miss Wang 创建时间： 2017年3月20日
+ * 下午5:03:18
+ */
+public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
+
+	@Override
+	public int saveOrder(Order order) {
+		String sql = "！insert into bs_orders (id,create_date,state,total_count,total_amount,user_id) values(?,?,?,?,?,?)";
+		return update(sql, order.getId(), order.getCreateDate(),
+				order.getState(), order.getTotalCount(),
+				order.getTotalAmount(), order.getUserId());
+	}
+
+	@Override
+	public int updateState(String orderId, int state) {
+		String sql = "update bs_orders set state= ? where id = ?";
+		return update(sql, state,orderId);
+
+	}
+
+	@Override
+	public List<Order> getOrderListByUserId(String userId) {
+		String sql="select id,create_date createDate,state,total_count totalCount,total_amount totalAmount,user_id userId "
+				+ " from bs_orders where user_id = ? order by id desc";
+		return getBeanList(sql, userId);
+
+	}
+
+	@Override
+	public List<Order> getOrderList() {
+		String sql="select id,create_date createDate,state,total_count totalCount,total_amount totalAmount,user_id userId "
+				+ " from bs_orders order by id desc";
+		return getBeanList(sql);
+
+	}
+
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+
+		//获取按钮
+		$("button:eq(0)").click(function(){
+			/* 
+				url:请求的服务器路径
+				data:请求参数
+				callback:请求成功返回时调用的回调函数
+				type:响应数据格式
+			*/
+			var url = "/18-web-ajax/HelloServlet";
+			var data = {
+					name:"Tom"
+			};
+			var fun = function(param){
+				alert(param);
+			};
+			var type = "json";
+			$.post(url, data, fun, type);
+
+		})
+	})
+
+</script>
+</head>
+<body>
+	<h1>jQuery.html</h1>
+	<button>发送post</button><br><br>
+	<button>发送get</button>
+</body>
+</html>

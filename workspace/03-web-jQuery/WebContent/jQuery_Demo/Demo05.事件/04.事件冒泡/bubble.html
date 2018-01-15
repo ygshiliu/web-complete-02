@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Untitled Document</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				font-size: 13px;
+				line-height: 130%;
+				padding: 60px;
+			}
+			#content{
+				width: 220px;
+				border: 1px solid #0050D0;
+				background: #96E555;
+			}
+			span{
+				width: 200px;
+				margin: 10px;
+				background: #666666;
+				cursor: pointer;
+				color: white;
+				display: block;
+			}
+			p{
+				width: 200px;
+				background: #888;
+				color: white;
+				height: 16px;
+			}
+		</style>
+		<script type="text/javascript" src="../../script/jquery-1.7.2.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				//事件冒泡：元素上的事件被触发，它的祖先相同事件也会被触发
+				//解决方案：return false
+				$("span").click(function(){
+					alert("span被点击");
+					//禁止冒泡
+					return false;
+				})
+				
+				//给id=content的div绑定单击事件
+				$("#content").click(function(){
+					alert("div被点击");
+					return false;
+				})
+				
+				//给body绑定点击事件
+				$("body").click(function(){
+					alert("body被点击");
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div id="content">
+			外层div元素
+			<span>内层span元素</span>
+			外层div元素
+		</div>
+		
+		<div id="msg"></div>	
+		
+		<br><br>
+		<a href="http://www.hao123.com">WWW.HAO123.COM</a>	
+	</body>
+</html>
+

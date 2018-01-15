@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;User.java&apos; to &apos;10-web-el/src/com.atguigu.user&apos;&#x0D;&#x0A;- Original project: &apos;10-web-beanUtils&apos;&#x0D;&#x0A;- Destination element: &apos;10-web-el/src/com.atguigu.user&apos;&#x0D;&#x0A;- Original element: &apos;com.atguigu.bean.User.java&apos;" description="Copy compilation unit" destination="=10-web-el/src&lt;com.atguigu.user" element1="/src&lt;com.atguigu.bean{User.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1489384545708" units="1" version="1.0"/>
+</session>

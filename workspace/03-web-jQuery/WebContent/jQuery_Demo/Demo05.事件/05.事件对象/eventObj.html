@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+
+	#areaDiv {
+		border: 1px solid black;
+		width: 300px;
+		height: 50px;
+		margin-bottom: 10px;
+	}
+	
+	#showMsg {
+		border: 1px solid black;
+		width: 300px;
+		height: 20px;
+	}
+
+</style>
+<script type="text/javascript">
+
+	window.onload = function(){
+		//获取 大Div元素
+		var areaDiv = document.getElementById("areaDiv");
+		//给div绑定一个鼠标移动事件
+		//回调函数被调用时，浏览器会创建一个事件对象作为参数传给回调函数
+		//我们只需要在回调函数中定义一个变量来接收这个事件对象就可以了
+		areaDiv.onmousemove = function(event){
+			
+			//在IE浏览器中事件对象不是event而是window.event
+			event = event || window.event;
+			
+			//获取鼠标的水平坐标和垂直坐标
+			 var x = event.clientX;
+			var y = event.clientY;
+			
+			var showMsg = document.getElementById("showMsg");
+			showMsg.innerHTML = "x="+x+";Y="+y;  
+		}
+	}
+</script>
+</head>
+<body>
+
+	<div id="areaDiv"></div>
+	<div id="showMsg"></div>
+
+</body>
+</html>

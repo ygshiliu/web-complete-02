@@ -1,0 +1,13 @@
+package com.atguigu.filter;
+
+import javax.servlet.Filter;
+
+/**
+ * 文件名: LoginFilter.java
+ * 描述: 
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月3日 上午11:54:05
+ */
+public class LoginFilter extends HttpFilter {
+
+}

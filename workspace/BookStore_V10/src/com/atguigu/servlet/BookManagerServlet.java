@@ -1,0 +1,227 @@
+package com.atguigu.servlet;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import com.atguigu.bean.Book;
+import com.atguigu.bean.Page;
+import com.atguigu.service.BookService;
+import com.atguigu.service.impl.BookServiceImpl;
+import com.atguigu.utils.WEBUtils;
+
+/**
+ * 处理图书请求的servlet
+ * Servlet implementation class BookManagerServlet
+ */
+public class BookManagerServlet extends BaseServlet {
+	private static final long serialVersionUID = 1L;
+	private BookService bs = new BookServiceImpl();
+	/**
+	 * 添加图书信息
+	 */
+	protected void addBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//获取图书信息
+		//组织图书信息
+		Book book = WEBUtils.param2Bean(request, new Book());
+		
+		//调用业务层处理
+		bs.saveBook(book);
+		
+		//根据结果显示页面
+		response.sendRedirect(request.getContextPath()+"/manager/BookManagerServlet?method=bookList");
+		
+	}
+	/**
+	 * 添加或修改图书信息
+	 */
+	protected void updateBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//创建工厂类
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		
+		//创建解析器
+		ServletFileUpload fileUpload = new ServletFileUpload(factory);
+		
+		//创建一个空Book
+		Book book = new Book();
+		//定义变量保存请求来源
+		String referer = null;
+		
+		//使用解析器解析request
+		try {
+			List<FileItem> list = fileUpload.parseRequest(request);
+			//遍历
+			for (FileItem item : list) {
+				if(item.isFormField()){
+					//普通表单项
+					//获取name属性值 
+					String name = item.getFieldName();
+					//获取value属性值 
+					String value = item.getString("utf-8");
+					
+					//设置请求来源
+					if("referer".equals(name)){
+						referer = value;
+					}
+					
+					try {
+						BeanUtils.setProperty(book, name, value);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					/*try {
+						//通过反射设置对象的属性
+						Field declaredField = Book.class.getDeclaredField(name);
+						declaredField.setAccessible(true);
+						declaredField.set(book, value);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}*/
+					
+				}else{
+					//图片
+					//获取图片名称
+					String name = item.getName();
+					
+					if(name.contains("/")){
+						name = name.substring(name.lastIndexOf("/")+1);
+					}
+					
+					//给文件加一个唯一标识
+					String uuid = UUID.randomUUID().toString().replace("-", "");
+					name = uuid+"_"+name;
+					
+					//获取物理路径
+					String path = getServletContext().getRealPath("/static/img");
+					
+					//将文件保存到服务器
+					item.write(new File(path+"/"+name));
+					book.setImgPath("static/img/"+name);
+				}
+				
+			}
+			
+		} catch (FileUploadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		if(book.getId()==null || book.getId() == 0){
+			//添加 图书
+			bs.saveBook(book);
+			System.out.println("保存");
+		}else{
+			//修改图书
+			bs.updateBook(book);
+		}
+		//根据结果显示页面
+		response.sendRedirect(referer);
+	/*	
+	 * 需求变更之前的代码
+	 * //获取图书信息
+		//组织图书信息
+		Book book = WEBUtils.param2Bean(request, new Book());
+		
+		if(book.getId()==null || book.getId() == 0){
+			//添加 图书
+			bs.saveBook(book);
+			System.out.println("保存");
+		}else{
+			//修改图书
+			bs.updateBook(book);
+		}
+		//获取请求来源
+		String referer = request.getParameter("referer");
+		//根据结果显示页面
+		response.sendRedirect(referer);*/
+		
+	}
+	/**
+	 * 查找一本图书信息
+	 */
+	protected void toUpdate(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取图书id
+		String bookId = request.getParameter("bookId");
+		
+		//调用业务层获取一本图书
+		Book book = bs.getBook(bookId);
+		
+		//将图书信息设置进域中
+		request.setAttribute("book", book);
+		
+		request.getRequestDispatcher("/pages/manager/book_edit.jsp").forward(request, response);
+		
+		
+	}
+	/**
+	 * 删除一本图书
+	 */
+	protected void delBook(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取图书id
+		String bookId = request.getParameter("bookId");
+		
+		//调用业务逻辑层，删除一本图书
+		bs.deleteBook(bookId);
+		//获取请求来源
+		String referer = request.getHeader("referer");
+		//重定向
+		response.sendRedirect(referer);
+	}
+	/**
+	 * 查看所有图书列表 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void bookList(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取所有图书信息
+		List<Book> list = bs.getAll();
+		
+		//将图书列表设置进域里
+		request.setAttribute("bookList", list);
+		
+		//转发到book_manager.jsp
+		request.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(request, response);
+		
+	}
+	protected void findBook(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取请求参数：当前页 ，显示条数
+		String pageSize = "4";
+		String pageNo = request.getParameter("pageNo");
+		//调用业务逻辑
+		Page<Book> page = bs.findBook(pageNo, pageSize);
+		
+		WEBUtils.setPath(request,page);
+		
+		//将page设置进域 中
+		request.setAttribute("page", page);
+		
+		//转发到book_manager.jsp
+		request.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(request, response);
+		
+		
+	}
+
+}

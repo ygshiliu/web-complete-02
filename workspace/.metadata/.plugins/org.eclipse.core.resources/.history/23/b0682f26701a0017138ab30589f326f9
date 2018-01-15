@@ -1,0 +1,10 @@
+package com.atguigu.servlet;
+/**
+ * 文件名: User.java
+ * 描述: 
+ * 开发人员： Miss Wang
+ * 创建时间： 2017年4月6日 上午10:22:46
+ */
+public class User {
+
+}

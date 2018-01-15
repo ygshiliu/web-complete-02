@@ -1,0 +1,41 @@
+package com.atguigu.servlet;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.atguigu.bean.Province;
+import com.atguigu.dao.ProvinceDao;
+import com.google.gson.Gson;
+
+/**
+ * Servlet implementation class ProvinceServlet
+ */
+public class ProvinceServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private ProvinceDao pd = new ProvinceDao();
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//获取省份信息
+		List<Province> list = pd.getProvinceList();
+		
+		//创建解析器
+		Gson gson = new Gson();
+		
+		//将list转成字符串
+		String json = gson.toJson(list);
+		
+		//发送给浏览器
+		response.getWriter().print(json);
+		
+	}
+
+}

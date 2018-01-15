@@ -1,0 +1,101 @@
+package com.atguigu.servlet;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.atguigu.bean.Cart;
+import com.atguigu.bean.Order;
+import com.atguigu.bean.OrderItem;
+import com.atguigu.bean.User;
+import com.atguigu.service.OrderService;
+import com.atguigu.service.impl.OrderServiceImpl;
+import com.atguigu.utils.WEBUtils;
+
+/**
+ * 处理与订单相关的请求
+ * Servlet implementation class OrderClientServlet
+ */
+public class OrderClientServlet extends BaseServlet {
+	private static final long serialVersionUID = 1L;
+	private OrderService os = new OrderServiceImpl();
+	//处理结账请求
+	protected void checkout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		User user = WEBUtils.getUser(request);
+		
+		//检查用户是否登录
+		if(user==null){
+			//未登录，重定向到登录页面
+			try {
+				response.sendRedirect(request.getContextPath()+"/pages/user/login.jsp");
+			} catch (IOException e) {}
+		}
+		
+		
+		//获取购物车
+		Cart cart = WEBUtils.getCart(request);
+		/*
+		之所以加以下这段代码，是因为购物车页面没有购物项信息情况下也显示“去结账”等信息。
+		也可在页面中直接隐藏信息来回避以下代码		
+		if(cart.getList().size()==0){
+			//还没有购物
+			response.sendRedirect(request.getContextPath()+"/client/BookClientServlet?method=findBook");
+			return;
+		}*/
+		//处理购物车，进行结账
+		String orderId = os.createOrder(user, cart);
+		//将订单号设置进域里
+		request.setAttribute("orderId", orderId);
+		//转发到checkout.jsp
+		request.getRequestDispatcher("/pages/cart/checkout.jsp").forward(request, response);
+		
+		
+	}
+	
+	//查询所有订单
+	protected void orderList(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取用户
+		User user = WEBUtils.getUser(request);
+		//查询当前订单
+		List<Order> list = os.getOrderListByUserId(user.getId()+"");
+		
+		request.setAttribute("list", list);
+		
+		request.getRequestDispatcher("/pages/order/order.jsp").forward(request, response);	
+		
+	}
+	
+	//确认收货
+	protected void takeBook(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取请求参数
+		String orderId = request.getParameter("orderId");
+		//发货
+		os.takeBook(orderId);
+		//获取请求来源
+		String referer = request.getHeader("referer");
+		//重定向
+		response.sendRedirect(referer);
+		
+	}
+	
+	protected void orderInfo(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//获取请求参数
+		String orderId = request.getParameter("orderId");
+		//获取当前订单的订单项
+		List<OrderItem> list = os.getInfoByOrderId(orderId);
+		//设置进域中
+		request.setAttribute("list", list);
+		//转发
+		request.getRequestDispatcher("/pages/order/orderItem.jsp").forward(request, response);
+		
+		
+	}
+}

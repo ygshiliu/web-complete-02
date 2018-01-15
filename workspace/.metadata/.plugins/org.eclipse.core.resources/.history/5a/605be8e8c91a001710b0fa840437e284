@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>三级联动</title>
+<!-- 引入jQuery库 -->
+<script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+	$(function(){
+			//点击省列表加载省份
+			//发送post请求
+			$.post("${pageContext.request.contextPath}/ProvinceServlet",function(data){
+				//data中存放着所有的省份信息
+				for(var i=0;i<data.length;i++){
+					//获取id
+					var id = data[i].id;
+					//获取name
+					var name = data[i].name;
+					//将所有数据追加到省份下拉列表 框
+					$("[name=province]").append("<option value='"+id+"'>"+name+"</option>");
+				}
+			},"json");
+			
+		//当省份发生改变时加载city
+		$("[name=province]").change(function(){
+			//向服务器发送请求，获取city信息
+			
+			//获取省份id
+			var pid = this.value;
+			var param = {
+					"pid":pid
+			}
+			$.post("${pageContext.request.contextPath}/CityServlet",param,function(data){
+				console.log(data);
+			},"json");
+		})
+		
+	})
+</script>
+</head>
+<body>
+<select name="province">
+	<option>请选择省...</option>
+</select>
+<select name="city">
+	<option>请选择市...</option>
+</select>
+<select name="district">
+	<option>请选择区县...</option>
+</select>
+</body>
+</html>

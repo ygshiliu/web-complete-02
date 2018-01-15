@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="styleB/css.css" />
+<script type="text/javascript" src="../../script/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		//删除一条信息
+		$("a").click(delA);
+		
+		//添加一条数据
+		$("#addEmpButton").click(function(){
+			//获取用户输入的数据信息
+			var name = $("#empName").val();
+			var email = $("#email").val();
+			var salary = $("#salary").val();
+			
+			//将用户输入的数据信息追加到table标签 中
+			/**
+					<tr>
+						<td>Tom</td>
+						<td>tom@tom.com</td>
+						<td>5000</td>
+						<td><a href="#">Delete</a></td>
+					</tr>
+			*/
+			//$("<tr></tr>")通过核心函数创建一个tr标签
+			//链式调用，jQuery对象的大部分方法都可以实现链式调用
+			//因为jQuery对象的大部分方法调用后都会返回调用用者本身
+			$("<tr></tr>").append("<td>"+name+"</td>")
+						  .append("<td>"+email+"</td>")
+						  .append("<td>"+salary+"</td>")
+						  .append("<td><a href='#'>Delete</a></td>")
+						  .find("a") // 查找tr下的a标签 
+						  .click(delA) //给a标签绑定单击事件
+						  .parents("tr") //查找它的祖先元素tr
+						  .appendTo("#employeeTable");
+			
+		})
+	})
+	
+	function delA(){
+			//find()方法用来查找指定后代元素
+			//html()方法用来获取元素的html代码
+			var name = $(this).parents("tr").find("td:first").html();
+			//confirm()方法用来返回一个带有确认与取消按钮的信息框，点击确认返回true，点击取消返回false
+			var flag = confirm("确实要删除"+name+"信息吗？");
+			if(flag){
+				//如果为真，说明确认删除tr
+				//parents()方法用来查找指定的祖先元素
+				$(this).parents("tr").remove();
+			}
+		}
+	
+</script>
+</head>
+<body>
+
+	<table id="employeeTable">
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Salary</th>
+			<th>&nbsp;</th>
+		</tr>
+		<tr>
+			<td>Tom</td>
+			<td>tom@tom.com</td>
+			<td>5000</td>
+			<td><a href="#">Delete</a></td>
+		</tr>
+		<tr>
+			<td>Jerry</td>
+			<td>jerry@sohu.com</td>
+			<td>8000</td>
+			<td><a href="#">Delete</a></td>
+		</tr>
+		<tr>
+			<td>Bob</td>
+			<td>bob@tom.com</td>
+			<td>10000</td>
+			<td><a href="#">Delete</a></td>
+		</tr>
+	</table>
+
+	<div id="formDiv">
+	
+		<h4>添加新员工</h4>
+
+		<table>
+			<tr>
+				<td class="word">name: </td>
+				<td class="inp">
+					<input type="text" name="empName" id="empName" />
+				</td>
+			</tr>
+			<tr>
+				<td class="word">email: </td>
+				<td class="inp">
+					<input type="text" name="email" id="email" />
+				</td>
+			</tr>
+			<tr>
+				<td class="word">salary: </td>
+				<td class="inp">
+					<input type="text" name="salary" id="salary" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<button id="addEmpButton" value="abc">
+						Submit
+					</button>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+</body>
+</html>

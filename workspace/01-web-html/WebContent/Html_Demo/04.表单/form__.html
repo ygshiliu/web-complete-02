@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>表单</title>
+</head>
+<body>
+	<h1>注册页面</h1>
+	<!-- 使用form标签来创建一个表单 -->
+	<!-- action用来指向一个处理表单信息的服务器url路径 -->
+	<!-- method用来指定提交表单信息的方式，默认是get请求。它有两个值 ：get和post -->
+	
+	<!-- 
+		当我们点击提交按钮后，表单信息会以如下形式提交给服务器
+		“target.html?name=Tom&password=123123”
+		使用？号来分隔url路径与提交的表单信息
+		表单信息是一个键值对的形式，通过=来连接键与值，并且键就是我们在表单项中的name属性值，value是我们输入的值 
+		多个表单信息之间使用&连接
+	 -->
+	<form action="target.html" method="get">
+		<!-- 文本框 -->
+		<!-- name属性提交给服务器使用 -->
+		姓名：<input type="text" name="name"><br><br>
+		<!-- 密码框 -->
+		密码：<input type="password" name="password"><br><br>
+		<!-- 单选按钮 -->
+		<!-- 单选按钮是通过name属性值进行分组，多个值它看成是多个组，只有组内才会有排他功能 -->
+		<!-- 像这种需要用户选择的表单项，我们需要给它定义一个value属性值  -->
+		性别：<input type="radio" name="sex" value="male">男
+		<input type="radio" name="sex" value="female">女<br><br>
+		<!-- 复选按钮 -->
+		兴趣：<input type="checkbox" name="hobby" value="swimming">游泳
+		<input type="checkbox" name="hobby" value="running">跑步
+		<input type="checkbox" name="hobby" value="reading">看书
+		<input type="checkbox" name="hobby" value="dancing">跳舞<br><br>
+		
+		<!-- 下拉列表框 -->
+		<!-- 同样select标签 也需要指定它的name与value属性 -->
+		<!-- name属性设置在select标签中，而value属性设置在option标签中 -->
+		你喜欢的语言：
+		<select name="language">
+			<option value="C">C</option>
+			<option value="C++">C++</option>
+			<option value="java">Java</option>
+			<option value="php">PHP</option>
+		</select><br><br>
+		
+		<!-- 按钮 -->
+		<!-- value属性可以用来定义按钮上的文本值  -->
+		<input type="submit" value="注册">
+	</form>	
+
+</body>
+</html>

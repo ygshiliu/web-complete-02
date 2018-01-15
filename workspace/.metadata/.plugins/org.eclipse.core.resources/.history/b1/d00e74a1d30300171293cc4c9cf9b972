@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>form.html</h1>
+	<!-- 在html中大部分请求都是get请求，只有在form标签的method属性值为post时，才会发送post请求 -->
+	
+	<form action="" method="get">
+		姓名：<input type="text" name="name"><br><br>
+		密码：<input type="password" name="passwrod"><br><br>
+		<input type="submit" value="登录">
+	</form>
+</body>
+</html>

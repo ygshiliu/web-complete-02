@@ -1,0 +1,117 @@
+
+-------------------------------以下是Get请求报文--------------------------------------
+报文的格式：
+报文首部
+	报文首行
+	报文头
+空行
+报文主体
+说明：get请求是通过url来传递请求参数的，没有请求主体，所以也没有空格
+
+Get请求报文的格式：
+报文首部
+	报文首行
+	报文头
+	
+	
+报文首部：
+	报文首行：
+		GET /06-web-http/index.html?name=Tom&password=123123 HTTP/1.1
+		请求方式 向服务器发送的请求url路径？请求参数		 协议名/协议版本
+	报文头：(通过观察请求头是键值对形式，有的是一个键对应一个值，有的是一个键对应多个值)
+		Accept: application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, */*
+		允许的类型：MIME值(大类型/具体类型)
+		Referer: http://localhost:8080/06-web-http/form.html
+		请求来源：广告计费 防盗链
+		Accept-Language: zh-CN,en-US;q=0.5
+		允许接收的语言：中文 zh代表语言 CN代表国家
+		User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C; .NET4.0E)
+		用户系统信息：
+		Accept-Encoding: gzip, deflate
+		允许文件的压缩格式：
+		Host: localhost:8080
+		主机
+		Connection: Keep-Alive
+		连接方式：保持长连接
+
+
+
+------------------------以下是响应报文-------------------------------
+响应报文格式：
+	报文首部
+		报文首行
+		报文头
+	空行
+	报文主体
+	
+响应状态码：
+	200 代表成功
+	302 代表重定向
+	404 代表资源未找到
+	500 代表服务器内部
+
+响应报文格式：
+	报文首部：
+		报文首行：
+			HTTP/1.1 200 OK
+			协议名/协议版本 状态码 状态描述
+		报文头：
+			Server: Apache-Coyote/1.1
+			服务器版本：
+			Accept-Ranges: bytes
+			允许的范围：
+			ETag: W/"146-1488958143190"
+			web缓存验证机制：
+			Last-Modified: Wed, 08 Mar 2017 07:29:03 GMT
+			最后修改的时间：标准的格林威治时间
+			Content-Type: text/html;charset=utf-8
+			响应体的内容类型：MIME值
+			Content-Length: 146
+			响应体的长度
+			Date: Wed, 08 Mar 2017 08:40:13 GMT
+			响应时间：格林威治时间
+	空行：
+	报文主体：（一般情况响应体就是网页内容，即在浏览器中看到的内容就是响应报文中响应体中的内容）
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<meta charset="UTF-8">
+			<title>Insert title here</title>
+			</head>
+			<body>
+				<h1>index.html</h1>
+			</body>
+			</html>
+
+--------------------------以下是post请求报文---------------------------------------------
+
+post请求格式：
+请求首部
+	请求首行
+	请求头
+空行
+请求体
+
+
+post请求格式：
+请求首部
+	请求首行：
+		POST /06-web-http/index.html HTTP/1.1
+		请求方式	请求的资源路径  协议名/协议版本
+	请求头：
+		Accept: application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, */*
+		Referer: http://localhost:8080/06-web-http/form.html
+		Accept-Language: zh-CN,en-US;q=0.5
+		User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C; .NET4.0E)
+		Content-Type: application/x-www-form-urlencoded
+		请求体中内容类型：application/x-www-form-urlencoded告诉浏览器请求体中的请求参数需要进行url编码
+			什么是url编码？就是将中文转换成二进制，然后将二进制编码转换成十六进制
+		Accept-Encoding: gzip, deflate
+		Host: localhost:8080
+		Content-Length: 47
+		Connection: Keep-Alive
+		Cache-Control: no-cache
+		是否使用缓存：不使用
+空行
+请求体：
+	name=%E5%AE%8B%E6%99%BA%E5%AD%9D&password=56565
